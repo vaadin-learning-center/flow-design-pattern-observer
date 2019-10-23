@@ -13,6 +13,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.rapidpm.frp.model.Result;
@@ -26,6 +27,7 @@ import static java.util.Objects.nonNull;
 import static org.vaadin.tutorial.flow.designpattern.observer.components.democomponent.DemoComponentRegistry.ValueEvent;
 
 @Route("")
+@Push
 public class MainView
     extends Composite<Div> {
 
@@ -90,6 +92,7 @@ public class MainView
       if (isActive) registrationResult = Result.ofNullable(registerForEvents());
       else {
         registrationResult.ifPresent(Registration::remove);
+        registrationResult = Result.failure("not registered");
         eventID.setValue("");
         eventMessage.setValue("");
       }

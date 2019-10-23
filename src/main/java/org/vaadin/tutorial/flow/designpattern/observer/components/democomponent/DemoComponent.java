@@ -24,11 +24,16 @@ public class DemoComponent
   private final TextField eventID      = new TextField("ID:");
   private final TextField eventMessage = new TextField("MSG:");
 
-
   private Result<Registration> registrationResult = Result.failure("not registered");
 
   public DemoComponent(String componentID) {
     setId(componentID);
+    getContent().add(new Span("" + getId().get()),
+                     active,
+                     input,
+                     sendBtn,
+                     eventID,
+                     eventMessage);
 
     eventID.setReadOnly(true);
     eventMessage.setReadOnly(true);
@@ -50,12 +55,11 @@ public class DemoComponent
       if (isActive) registrationResult = Result.ofNullable(registerForEvents());
       else {
         registrationResult.ifPresent(Registration::remove);
+        registrationResult = Result.failure("not registered");
         eventID.setValue("");
         eventMessage.setValue("");
       }
     });
-
-    getContent().add(new Span("" + getId().get()), active, input, sendBtn, eventID, eventMessage);
   }
 
   private Registration registerForEvents() {

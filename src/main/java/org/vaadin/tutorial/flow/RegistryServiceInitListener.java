@@ -17,6 +17,7 @@ serviceInitEvent.getSource().addUIInitListener(this);
     final VaadinSession session = uiInitEvent.getUI()
                                              .getSession();
     logger().info("uiInit - session is " + session);
+    session.setAttribute(DemoComponentRegistry.class, null);
     session.setAttribute(DemoComponentRegistry.class, new DemoComponentRegistry());
   }
 }

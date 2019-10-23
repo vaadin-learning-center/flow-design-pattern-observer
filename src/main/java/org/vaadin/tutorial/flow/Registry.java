@@ -8,10 +8,6 @@ public class Registry<VALUE> {
 
   private final Set<Consumer<VALUE>> listeners = ConcurrentHashMap.newKeySet();
 
-//  public static <V> Registry<V> instance() {
-//    return new Registry<>();
-//  }
-
   public Registration register(Consumer<VALUE> listener) {
     listeners.add(listener);
     return () -> listeners.remove(listener);
